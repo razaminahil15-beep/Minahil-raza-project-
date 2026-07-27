@@ -1,0 +1,6 @@
+{
+  "name": "MediFlow AI – Smart Hospital Assistant",
+  "description": "Futuristic AI-powered healthcare mobile application featuring smart queue management, symptom checker, digital wallet, AI health assistant, analytics, and admin dashboard.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

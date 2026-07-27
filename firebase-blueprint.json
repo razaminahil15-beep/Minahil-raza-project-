@@ -1,0 +1,214 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Patient profile data",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "bloodType": {
+          "type": "string",
+          "maxLength": 10
+        },
+        "height": {
+          "type": "string",
+          "maxLength": 20
+        },
+        "weight": {
+          "type": "string",
+          "maxLength": 20
+        },
+        "allergies": {
+          "type": "string",
+          "maxLength": 200
+        }
+      },
+      "required": [
+        "name",
+        "email"
+      ]
+    },
+    "Appointment": {
+      "title": "Appointment",
+      "description": "Medical appointment booking and queue token",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "doctorName": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "doctorSpecialty": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "doctorAvatar": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "hospitalName": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "roomNumber": {
+          "type": "string",
+          "maxLength": 50
+        },
+        "date": {
+          "type": "string",
+          "maxLength": 50
+        },
+        "time": {
+          "type": "string",
+          "maxLength": 50
+        },
+        "tokenNumber": {
+          "type": "string",
+          "maxLength": 50
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "In Queue",
+            "Completed",
+            "Cancelled"
+          ]
+        },
+        "queuePosition": {
+          "type": "number"
+        },
+        "estimatedWaitMins": {
+          "type": "number"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "userId",
+        "doctorName",
+        "tokenNumber",
+        "status"
+      ]
+    },
+    "MedicalRecord": {
+      "title": "MedicalRecord",
+      "description": "Encrypted health records and documents",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 150
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "Prescription",
+            "Lab Report",
+            "Vaccination",
+            "Insurance",
+            "Scan"
+          ]
+        },
+        "date": {
+          "type": "string",
+          "maxLength": 50
+        },
+        "details": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "fileSize": {
+          "type": "string",
+          "maxLength": 20
+        },
+        "doctorName": {
+          "type": "string",
+          "maxLength": 100
+        }
+      },
+      "required": [
+        "userId",
+        "title",
+        "category",
+        "details"
+      ]
+    },
+    "Medication": {
+      "title": "Medication",
+      "description": "Medication tracking and reminders",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "dosage": {
+          "type": "string",
+          "maxLength": 50
+        },
+        "time": {
+          "type": "string",
+          "maxLength": 50
+        },
+        "instruction": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "taken": {
+          "type": "boolean"
+        },
+        "streakCount": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "userId",
+        "name",
+        "taken"
+      ]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": {
+        "$ref": "#/entities/User"
+      },
+      "description": "User profile collection indexed by Auth UID"
+    },
+    "/appointments/{appointmentId}": {
+      "schema": {
+        "$ref": "#/entities/Appointment"
+      },
+      "description": "Appointments collection"
+    },
+    "/medicalRecords/{recordId}": {
+      "schema": {
+        "$ref": "#/entities/MedicalRecord"
+      },
+      "description": "Medical records collection"
+    },
+    "/medications/{medicationId}": {
+      "schema": {
+        "$ref": "#/entities/Medication"
+      },
+      "description": "Medications collection"
+    }
+  }
+}
